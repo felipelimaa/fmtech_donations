@@ -46,8 +46,17 @@ class DonatorsController {
         } else {
             return donator
         }
+    }
 
+    @GetMapping("/{id}/total")
+    ResponseEntity<?> totalAmount(@PathVariable("id") Long donatorsId) {
+        Donators donator = donatorsService.get(donatorsId)
 
+        if( donator.id ) {
+            return ResponseEntity.ok(donationsService.totalAmountByDonators(donatorsId))
+        } else {
+            return donator
+        }
     }
 
     @PostMapping
