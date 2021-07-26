@@ -33,6 +33,11 @@ class DonationsController {
         return ResponseEntity.ok(donation)
     }
 
+    @GetMapping("/total")
+    ResponseEntity<?> totalAmount() {
+        return ResponseEntity.ok(donationsService.totalAmount())
+    }
+
     @PostMapping
     ResponseEntity<DonationsDTO> create(@RequestBody DonationsDTO donationsDTO){
         DonationsDTO donationsAdded = donationsService.create(donationsDTO)

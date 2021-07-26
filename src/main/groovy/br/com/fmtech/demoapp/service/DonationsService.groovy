@@ -32,6 +32,10 @@ class DonationsService {
         return donationsRepository.findByDonatorsId(donatorsId)
     }
 
+    Object totalAmount() {
+        return donationsRepository.totalAmount()
+    }
+
     @Transactional
     DonationsDTO create(DonationsDTO donationsDTO){
         if(donationsDTO.amount == null && donationsDTO.donatorId == null){
