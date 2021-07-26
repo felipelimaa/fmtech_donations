@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository
 @Repository
 interface DonationsRepository extends JpaRepository<Donations, Long> {
 
+//    @Query("select * from donations where donator_id = :id")
+    List<Donations> findByDonatorsId(Long donators)
+
 }

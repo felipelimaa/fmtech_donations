@@ -1,6 +1,8 @@
 package br.com.fmtech.demoapp.controller
 
+import br.com.fmtech.demoapp.domain.Donations
 import br.com.fmtech.demoapp.domain.Donators
+import br.com.fmtech.demoapp.service.DonationsService
 import br.com.fmtech.demoapp.service.DonatorsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -19,6 +21,9 @@ class DonatorsController {
     @Autowired
     DonatorsService donatorsService
 
+    @Autowired
+    DonationsService donationsService
+
     @GetMapping
     ResponseEntity<Donators> findAll() {
         List<Donators> donators = donatorsService.findAll()
@@ -29,6 +34,20 @@ class DonatorsController {
     ResponseEntity<Donators> findOne(@PathVariable("id") Long id) {
         Donators donator = donatorsService.get(id)
         return ResponseEntity.ok(donator)
+    }
+
+    @GetMapping("/{id}/donations")
+    ResponseEntity<Donations> donations(@PathVariable("id") Long donatorsId){
+        Donators donator = donatorsService.get(donatorsId)
+
+        if( donator.id ) {
+            List<Donations> donations = donationsService.findByDonator(donatorsId)
+            return ResponseEntity.ok(donations)
+        } else {
+            return donator
+        }
+
+
     }
 
     @PostMapping

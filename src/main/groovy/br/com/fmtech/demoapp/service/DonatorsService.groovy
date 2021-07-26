@@ -26,5 +26,4 @@ class DonatorsService {
     Donators create(Donators donator) {
         return donatorsRepository.save(donator)
     }
-
 }

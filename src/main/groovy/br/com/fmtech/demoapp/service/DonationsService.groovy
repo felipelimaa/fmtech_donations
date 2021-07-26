@@ -25,8 +25,11 @@ class DonationsService {
     }
 
     Donations get(Long id) {
-        Donations donation = donationsRepository.findById(id).orElseThrow(() -> new DonationsNotFoundException())
-        return donation
+        return donationsRepository.findById(id).orElseThrow(() -> new DonationsNotFoundException())
+    }
+
+    List<Donations> findByDonator(Long donatorsId){
+        return donationsRepository.findByDonatorsId(donatorsId)
     }
 
     @Transactional
