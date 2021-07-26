@@ -2,6 +2,7 @@ package br.com.fmtech.demoapp.service
 
 import br.com.fmtech.demoapp.domain.Donations
 import br.com.fmtech.demoapp.dto.DonationsDTO
+import br.com.fmtech.demoapp.exception.AmountDonationsUnderZero
 import br.com.fmtech.demoapp.exception.DonationsEmptyValuesException
 import br.com.fmtech.demoapp.exception.DonationsNotFoundException
 import br.com.fmtech.demoapp.repository.DonationsRepository
@@ -33,7 +34,9 @@ class DonationsService {
         if(donationsDTO.amount == null && donationsDTO.donatorId == null){
             throw new DonationsEmptyValuesException()
         }
-        // criar exception e validação do valor de doação quando <= 0
+        if(donationsDTO.amount <= 0){
+            throw new AmountDonationsUnderZero()
+        }
 
         def donators = donatorsService.get(donationsDTO.donatorId)
 
